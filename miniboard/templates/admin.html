@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Admin panel</h1>
+<p><strong>Flag:</strong> <code>{{ flag }}</code></p>
+<p class="muted">
+  This page is only accessible to admins. The XSS payload in a reported post
+  calls <code>fetch('/admin')</code> from the bot's browser — same-origin,
+  so the bot's session cookie is sent automatically, even though it's HttpOnly.
+</p>
+<h2>Recent reports</h2>
+{% for r in reports %}
+  <div class="post">
+    <div><strong>{{ r['url'] }}</strong></div>
+    <div class="muted">by {{ r['reported_by'] }} · {{ r['created_at'] }} · {{ r['status'] }}</div>
+  </div>
+{% else %}
+  <p class="muted">No reports yet.</p>
+{% endfor %}
+{% endblock %}

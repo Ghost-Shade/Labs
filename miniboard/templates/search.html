@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search</h1>
+<form method="get">
+  <input name="q" value="{{ q }}" size="50" placeholder="Search posts…">
+  <button type="submit">Search</button>
+</form>
+{% if q %}
+  {# =============================================================
+     REFLECTED XSS: `q` is read from the query string and
+     rendered raw with `|safe`.
+     ============================================================= #}
+  <p>Results for: <strong>{{ q | safe }}</strong></p>
+  {% for r in results %}
+    <div class="post">
+      <a href="{{ url_for('view_post', post_id=r['id']) }}">{{ r['title'] }}</a>
+      <span class="muted">by {{ r['author'] }}</span>
+    </div>
+  {% else %}
+    <p class="muted">No results.</p>
+  {% endfor %}
+{% endif %}
+{% endblock %}

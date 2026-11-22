@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Report URL to admin</h1>
+<p class="muted">
+  The admin bot will log in as <code>admin</code> and visit the URL you provide.
+  Only <code>127.0.0.1</code> / <code>localhost</code> URLs are accepted.
+</p>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+{% if success %}<p class="success">{{ success }}</p>{% endif %}
+<form method="post">
+  <p><input name="url" size="70" placeholder="http://127.0.0.1:5000/posts/1"></p>
+  <p><button type="submit">Send to admin bot</button></p>
+</form>
+<p class="muted">After ~10–15 seconds, check <a href="{{ url_for('exfil_log') }}">/exfil/log</a>.</p>
+{% endblock %}

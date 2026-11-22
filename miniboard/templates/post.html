@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ post['title'] }}</h1>
+<div class="muted">by {{ post['author'] }} · {{ post['created_at'] }}</div>
+<hr>
+<div>
+  {# =============================================================
+     STORED XSS: body was stored from user input and is rendered
+     with `|safe`, so any HTML/JS the author supplied executes
+     for every visitor — including the admin bot.
+     ============================================================= #}
+  {{ post['body'] | safe }}
+</div>
+{% endblock %}

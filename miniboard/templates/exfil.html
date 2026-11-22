@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Attacker's exfil log</h1>
+<p class="muted">This simulates a server the attacker controls. The XSS payload posts stolen data here.</p>
+{% for row in rows %}
+  <div class="post">
+    <div class="muted">#{{ row['id'] }} · {{ row['created_at'] }}</div>
+    <pre>{{ row['data'] }}</pre>
+  </div>
+{% else %}
+  <p class="muted">Nothing exfiltrated yet.</p>
+{% endfor %}
+{% endblock %}
