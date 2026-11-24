@@ -1,12 +1,14 @@
-FROM python:3.12-slim
+# Use a valid Playwright Python image (v1.64.1-noble is confirmed to exist)
+FROM mcr.microsoft.com/playwright/python:v1.64.1-noble
 
-ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# Install Python deps + Chromium in one layer
+# Install the Python packages. The Playwright wheel is still ~38 MB,
+# so keep the long timeout to survive a slow connection.
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt \
-    && playwright install --with-deps chromium
+COPY wheels/ /wheels/
+
+RUN pip install --no-index --find-links=/wheels -r requirements.txt
 
 # Copy app code
 COPY . .

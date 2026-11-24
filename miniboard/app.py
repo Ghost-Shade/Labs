@@ -23,8 +23,8 @@ FLAG = os.environ.get("FLAG", "FLAG{stored_xss_owns_the_admin}")
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "insecure-dev-secret")
-# HttpOnly: JS cannot read the session cookie. XSS must use fetch() instead.
-app.config["SESSION_COOKIE_HTTPONLY"] = True
+# HttpOnly: JS cannot read the session cookie. XSS must use fetch() instead. set to False to enable one to escalate to admin via STEALING ADMIN session cooking using stored xss.
+app.config["SESSION_COOKIE_HTTPONLY"] = False
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
 # --------------------------------------------------------------------------

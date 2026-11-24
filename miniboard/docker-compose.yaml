@@ -1,0 +1,16 @@
+services:
+  miniboard:
+    build: .
+    container_name: miniboard
+    ports:
+      - "127.0.0.1:5000:5000"      # localhost only — NEVER expose this
+    environment:
+      BASE_URL: "http://127.0.0.1:5000"
+      FLAG:     "FLAG{stored_xss_owns_the_admin}"
+      SECRET_KEY: "aGhosts_shade_is_the_key"
+    volumes:
+      - miniboard-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  miniboard-data:

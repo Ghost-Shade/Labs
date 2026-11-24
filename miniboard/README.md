@@ -1,10 +1,10 @@
 # MiniBoard — Realistic XSS Lab
 
-⚠️ Intentionally vulnerable. Run on **localhost only**. Never expose to the internet.
+Intentionally vulnerable. Run on **localhost only**. Never expose to the internet.
 
 A small bulletin board with real auth, a real admin panel, and a headless
-admin bot that visits reported URLs — the same mechanism used by HackerOne
-programs and PortSwigger Academy.
+admin bot that visits reported URLs.
+The Lab is mean to enable one to understand the basics of XSS
 
 ## Run
 
