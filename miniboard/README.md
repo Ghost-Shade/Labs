@@ -9,6 +9,7 @@ The Lab is mean to enable one to understand the basics of XSS
 ## Run
 
 ```bash
+git clone https://github.com/Ghost-Shade/Labs && cd ./Labs/miniboard
 docker compose up --build
 ```
 
